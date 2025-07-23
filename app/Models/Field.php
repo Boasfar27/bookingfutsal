@@ -83,14 +83,14 @@ class Field extends Model
 
         // Check if date is within operating days
         $dayOfWeek = Carbon::parse($date)->dayOfWeek;
-        if (!in_array($dayOfWeek, $this->operating_days ?? [1,2,3,4,5,6,7])) {
+        if (!in_array($dayOfWeek, $this->operating_days ?? [1, 2, 3, 4, 5, 6, 7])) {
             return false;
         }
 
         // Check if time is within operating hours
         $openTime = Carbon::parse($this->open_time)->format('H:i');
         $closeTime = Carbon::parse($this->close_time)->format('H:i');
-        
+
         if ($startTime < $openTime || $endTime > $closeTime) {
             return false;
         }
@@ -102,7 +102,7 @@ class Field extends Model
             ->where(function ($query) use ($startTime, $endTime) {
                 $query->where(function ($q) use ($startTime, $endTime) {
                     $q->where('start_time', '<', $endTime)
-                      ->where('end_time', '>', $startTime);
+                        ->where('end_time', '>', $startTime);
                 });
             })
             ->exists();
@@ -117,7 +117,7 @@ class Field extends Model
             ->where(function ($query) use ($startTime, $endTime) {
                 $query->where(function ($q) use ($startTime, $endTime) {
                     $q->where('start_time', '<', $endTime)
-                      ->where('end_time', '>', $startTime);
+                        ->where('end_time', '>', $startTime);
                 });
             })
             ->exists();
@@ -133,12 +133,12 @@ class Field extends Model
         $slots = [];
         $openTime = Carbon::parse($this->open_time);
         $closeTime = Carbon::parse($this->close_time);
-        
+
         // Generate hourly slots
         $currentTime = $openTime->copy();
         while ($currentTime->lt($closeTime)) {
             $endTime = $currentTime->copy()->addHour();
-            
+
             if ($this->isAvailable($date, $currentTime->format('H:i:s'), $endTime->format('H:i:s'))) {
                 $slots[] = [
                     'start_time' => $currentTime->format('H:i'),
@@ -152,7 +152,7 @@ class Field extends Model
                     'available' => false,
                 ];
             }
-            
+
             $currentTime->addHour();
         }
 
