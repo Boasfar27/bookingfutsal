@@ -90,12 +90,12 @@ FutsalPro adalah platform berbasis web untuk melakukan pemesanan lapangan futsal
 |----|------|--------|----------------|
 | 1 | Setup Laravel + Filament | ✅ Done | 2025-01-23 |
 | 2 | Install Dependencies (Spatie Permission, Laravel Excel) | ✅ Done | 2025-01-23 |
-| 3 | Setup Role & Permission | ⏳ In Progress | 2025-01-23 |
-| 4 | Buat Struktur Database & Migrasi | ❌ Belum Dikerjakan | - |
-| 5 | Buat Eloquent Models & Relasi | ❌ Belum Dikerjakan | - |
-| 6 | Halaman Booking User | ❌ Belum Dikerjakan | - |
-| 7 | Upload Bukti Pembayaran | ❌ Belum Dikerjakan | - |
-| 8 | Dashboard Admin Filament | ❌ Belum Dikerjakan | - |
+| 3 | Setup Role & Permission | ✅ Done | 2025-01-23 |
+| 4 | Buat Struktur Database & Migrasi | ✅ Done | 2025-01-23 |
+| 5 | Buat Eloquent Models & Relasi | ✅ Done | 2025-01-23 |
+| 6 | Dashboard Admin Filament | ✅ Done | 2025-01-23 |
+| 7 | Halaman Booking User | ❌ Belum Dikerjakan | - |
+| 8 | Upload Bukti Pembayaran | ❌ Belum Dikerjakan | - |
 | 9 | Sistem Booking Slot Real-time | ❌ Belum Dikerjakan | - |
 | 10 | Export Laporan Excel | ❌ Belum Dikerjakan | - |
 | 11 | Testing & Deployment Setup | ❌ Belum Dikerjakan | - |
