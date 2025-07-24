@@ -113,8 +113,8 @@ class RolePermissionSeeder extends Seeder
 
         // Create Superadmin User
         $superadmin = User::create([
-            'name' => 'Super Administrator',
-            'email' => 'superadmin@futsalpro.com',
+            'name' => 'Super Admin',
+            'email' => 'superadmin@example.com',
             'password' => Hash::make('password'),
             'email_verified_at' => now(),
         ]);
@@ -122,8 +122,8 @@ class RolePermissionSeeder extends Seeder
 
         // Create Admin User
         $admin = User::create([
-            'name' => 'Admin Lapangan A',
-            'email' => 'admin@futsalpro.com',
+            'name' => 'Admin',
+            'email' => 'admin@example.com',
             'password' => Hash::make('password'),
             'email_verified_at' => now(),
         ]);
@@ -131,17 +131,13 @@ class RolePermissionSeeder extends Seeder
 
         // Create Regular User
         $user = User::create([
-            'name' => 'Customer Demo',
-            'email' => 'user@futsalpro.com',
+            'name' => 'User',
+            'email' => 'user@example.com',
             'password' => Hash::make('password'),
             'email_verified_at' => now(),
         ]);
         $user->assignRole('user');
 
-        $this->command->info('Roles and permissions created successfully!');
-        $this->command->info('Default users created:');
-        $this->command->info('Superadmin: superadmin@futsalpro.com / password');
-        $this->command->info('Admin: admin@futsalpro.com / password');
-        $this->command->info('User: user@futsalpro.com / password');
+
     }
 }

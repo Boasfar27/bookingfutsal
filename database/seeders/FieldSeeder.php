@@ -15,7 +15,7 @@ class FieldSeeder extends Seeder
     public function run(): void
     {
         // Get admin user
-        $admin = User::where('email', 'admin@futsalpro.com')->first();
+        $admin = User::where('email', 'admin@example.com')->first();
 
         $fields = [
             [
@@ -138,8 +138,5 @@ class FieldSeeder extends Seeder
         foreach ($fields as $fieldData) {
             Field::create($fieldData);
         }
-
-        $this->command->info('Demo fields created successfully!');
-        $this->command->info('4 fields have been created with different types and price ranges.');
     }
 }
