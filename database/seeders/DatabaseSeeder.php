@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             RolePermissionSeeder::class,
             FieldSeeder::class,
             BookingSeeder::class,
+            PaymentSeeder::class,
         ]);
     }
 }
