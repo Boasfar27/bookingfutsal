@@ -94,9 +94,10 @@ FutsalPro adalah platform berbasis web untuk melakukan pemesanan lapangan futsal
 | 4 | Buat Struktur Database & Migrasi | ✅ Done | 2025-01-23 |
 | 5 | Buat Eloquent Models & Relasi | ✅ Done | 2025-01-23 |
 | 6 | Dashboard Admin Filament | ✅ Done | 2025-01-23 |
-| 7 | Halaman Booking User | ❌ Belum Dikerjakan | - |
-| 8 | Upload Bukti Pembayaran | ❌ Belum Dikerjakan | - |
-| 9 | Sistem Booking Slot Real-time | ❌ Belum Dikerjakan | - |
+| 7 | Booking Management Resource | ✅ Done | 2025-01-23 |
+| 8 | Halaman Booking User | ❌ Belum Dikerjakan | - |
+| 9 | Upload Bukti Pembayaran | ❌ Belum Dikerjakan | - |
+| 10 | Sistem Booking Slot Real-time | ❌ Belum Dikerjakan | - |
 | 10 | Export Laporan Excel | ❌ Belum Dikerjakan | - |
 | 11 | Testing & Deployment Setup | ❌ Belum Dikerjakan | - |
 
