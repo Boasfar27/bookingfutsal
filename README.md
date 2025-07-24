@@ -13,7 +13,7 @@ FutsalPro adalah platform berbasis web untuk melakukan pemesanan lapangan futsal
 - **Backend:** Laravel 12
 - **Admin Panel:** Filament v3
 - **Styling:** TailwindCSS
-- **Frontend:** Blade/Livewire
+- **Frontend:** React
 - **Permission:** Spatie Permission
 - **Export:** Laravel Excel
 - **Database:** MySQL
@@ -88,24 +88,25 @@ FutsalPro adalah platform berbasis web untuk melakukan pemesanan lapangan futsal
 
 | No | Task | Status | Tanggal Update |
 |----|------|--------|----------------|
-| 1 | Setup Laravel + Filament | ✅ Done | 2025-01-23 |
-| 2 | Install Dependencies (Spatie Permission, Laravel Excel) | ✅ Done | 2025-01-23 |
-| 3 | Setup Role & Permission | ✅ Done | 2025-01-23 |
-| 4 | Buat Struktur Database & Migrasi | ✅ Done | 2025-01-23 |
-| 5 | Buat Eloquent Models & Relasi | ✅ Done | 2025-01-23 |
-| 6 | Dashboard Admin Filament | ✅ Done | 2025-01-23 |
-| 7 | Booking Management Resource | ✅ Done | 2025-01-23 |
-| 8 | User Management Resource | ✅ Done | 2025-01-23 |
-| 9 | Payment Verification Resource | ✅ Done | 2025-01-23 |
-| 10 | Halaman Booking User | ❌ Belum Dikerjakan | - |
-| 11 | Upload Bukti Pembayaran | ❌ Belum Dikerjakan | - |
+| 1 | Setup Laravel + Filament | ✅ Done 
+| 2 | Install Dependencies (Spatie Permission, Laravel Excel) | ✅ Done 
+| 3 | Setup Role & Permission | ✅ Done
+| 4 | Buat Struktur Database & Migrasi | ✅ Done 
+| 5 | Buat Eloquent Models & Relasi | ✅ Done   
+| 6 | Dashboard Admin Filament | ✅ Done  
+| 7 | Booking Management Resource | ✅ Done   
+| 8 | User Management Resource | ✅ Done  
+| 9 | Payment Verification Resource | ✅ Done 
+| 10 | Schedule Management Resource | ✅ Done   
+| 11 | Halaman Booking User | ❌ Belum Dikerjakan | - |
+| 12 | Upload Bukti Pembayaran | ❌ Belum Dikerjakan | - |
 | 10 | Sistem Booking Slot Real-time | ❌ Belum Dikerjakan | - |
 | 10 | Export Laporan Excel | ❌ Belum Dikerjakan | - |
 | 11 | Testing & Deployment Setup | ❌ Belum Dikerjakan | - |
 
 ## 🚀 Installation
 
-```bash
+```bash 
 # Clone repository
 git clone <repository-url>
 cd bookingfutsal
