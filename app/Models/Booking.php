@@ -34,8 +34,8 @@ class Booking extends Model
 
     protected $casts = [
         'booking_date' => 'date',
-        'start_time' => 'datetime:H:i',
-        'end_time' => 'datetime:H:i',
+        'start_time' => 'datetime:H:i:s',
+        'end_time' => 'datetime:H:i:s',
         'total_price' => 'decimal:2',
         'confirmed_at' => 'datetime',
         'cancelled_at' => 'datetime',
@@ -105,7 +105,7 @@ class Booking extends Model
     public function canBeCancelled(): bool
     {
         return in_array($this->status, ['pending', 'confirmed']) &&
-            Carbon::parse($this->booking_date . ' ' . $this->start_time)->isFuture();
+            Carbon::parse($this->booking_date)->setTimeFromTimeString($this->start_time)->isFuture();
     }
 
     /**
@@ -114,7 +114,7 @@ class Booking extends Model
     public function canBeConfirmed(): bool
     {
         return $this->status === 'pending' &&
-            Carbon::parse($this->booking_date . ' ' . $this->start_time)->isFuture();
+            Carbon::parse($this->booking_date)->setTimeFromTimeString($this->start_time)->isFuture();
     }
 
     /**
@@ -162,7 +162,7 @@ class Booking extends Model
         }
 
         // Check if booking time has passed
-        $bookingEnd = Carbon::parse($this->booking_date . ' ' . $this->end_time);
+        $bookingEnd = Carbon::parse($this->booking_date)->setTimeFromTimeString($this->end_time);
         if ($bookingEnd->isFuture()) {
             return false;
         }

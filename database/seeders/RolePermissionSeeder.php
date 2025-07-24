@@ -113,7 +113,7 @@ class RolePermissionSeeder extends Seeder
 
         // Create Superadmin User
         $superadmin = User::create([
-            'name' => 'Super Admin',
+            'name' => 'Super Administrator',
             'email' => 'superadmin@example.com',
             'password' => Hash::make('password'),
             'email_verified_at' => now(),
@@ -122,7 +122,7 @@ class RolePermissionSeeder extends Seeder
 
         // Create Admin User
         $admin = User::create([
-            'name' => 'Admin',
+            'name' => 'Admin Lapangan A',
             'email' => 'admin@example.com',
             'password' => Hash::make('password'),
             'email_verified_at' => now(),
@@ -131,12 +131,18 @@ class RolePermissionSeeder extends Seeder
 
         // Create Regular User
         $user = User::create([
-            'name' => 'User',
+            'name' => 'Customer Demo',
             'email' => 'user@example.com',
             'password' => Hash::make('password'),
             'email_verified_at' => now(),
         ]);
         $user->assignRole('user');
+
+        $this->command->info('Roles and permissions created successfully!');
+        $this->command->info('Default users created:');
+        $this->command->info('Superadmin: superadmin@example.com / password');
+        $this->command->info('Admin: admin@example.com / password');
+        $this->command->info('User: user@example.com / password');
 
 
     }

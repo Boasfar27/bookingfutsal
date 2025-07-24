@@ -97,14 +97,15 @@ class BookingResource extends Resource
                                     ->afterStateUpdated(function ($state, callable $set, $get) {
                                         if ($state && $get('duration_hours')) {
                                             $startTime = \Carbon\Carbon::parse($state);
-                                            $endTime = $startTime->copy()->addHours($get('duration_hours'));
+                                            $durationHours = (int) $get('duration_hours'); // Convert to integer
+                                            $endTime = $startTime->copy()->addHours($durationHours);
                                             $set('end_time', $endTime->format('H:i'));
 
                                             // Calculate total price
                                             $fieldId = $get('field_id');
                                             if ($fieldId) {
                                                 $field = Field::find($fieldId);
-                                                $totalPrice = $field->price_per_hour * $get('duration_hours');
+                                                $totalPrice = $field->price_per_hour * $durationHours;
                                                 $set('total_price', $totalPrice);
                                             }
                                         }
@@ -113,7 +114,8 @@ class BookingResource extends Resource
                                 Forms\Components\TimePicker::make('end_time')
                                     ->label('Jam Selesai')
                                     ->required()
-                                    ->disabled(),
+                                    ->disabled()
+                                    ->dehydrated(), // This ensures the value is included in form data even when disabled
                             ]),
 
                         Grid::make(2)
@@ -132,14 +134,15 @@ class BookingResource extends Resource
                                     ->afterStateUpdated(function ($state, callable $set, $get) {
                                         if ($state && $get('start_time')) {
                                             $startTime = \Carbon\Carbon::parse($get('start_time'));
-                                            $endTime = $startTime->copy()->addHours($state);
+                                            $durationHours = (int) $state; // Convert to integer
+                                            $endTime = $startTime->copy()->addHours($durationHours);
                                             $set('end_time', $endTime->format('H:i'));
 
                                             // Calculate total price
                                             $fieldId = $get('field_id');
                                             if ($fieldId) {
                                                 $field = Field::find($fieldId);
-                                                $totalPrice = $field->price_per_hour * $state;
+                                                $totalPrice = $field->price_per_hour * $durationHours;
                                                 $set('total_price', $totalPrice);
                                             }
                                         }
