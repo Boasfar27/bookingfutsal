@@ -163,7 +163,7 @@ class FieldResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('images')
-                    ->label('Foto')
+                    ->label('Gambar')
                     ->circular()
                     ->stacked()
                     ->limit(3)
