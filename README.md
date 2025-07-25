@@ -13,7 +13,7 @@ FutsalPro adalah platform berbasis web untuk melakukan pemesanan lapangan futsal
 - **Backend:** Laravel 12
 - **Admin Panel:** Filament v3
 - **Styling:** TailwindCSS
-- **Frontend:** React
+- **Frontend:** Blade dan tailwindcss
 - **Permission:** Spatie Permission
 - **Export:** Laravel Excel
 - **Database:** MySQL
