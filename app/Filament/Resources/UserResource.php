@@ -33,7 +33,7 @@ class UserResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Users';
 
-    protected static ?string $navigationGroup = 'User Management';
+    protected static ?string $navigationGroup = 'Manajemen User';
 
     protected static ?int $navigationSort = 1;
 
@@ -48,23 +48,23 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Section::make('User Information')
+                Section::make('Informasi User')
                     ->schema([
                         Grid::make(2)
                             ->schema([
                                 Forms\Components\TextInput::make('name')
-                                    ->label('Full Name')
+                                    ->label('Nama Lengkap')
                                     ->required()
                                     ->maxLength(255)
-                                    ->placeholder('Enter full name'),
+                                    ->placeholder('Masukan nama lengkap'),
 
                                 Forms\Components\TextInput::make('email')
-                                    ->label('Email Address')
+                                    ->label('Email')
                                     ->email()
                                     ->required()
                                     ->maxLength(255)
                                     ->unique(ignoreRecord: true)
-                                    ->placeholder('Enter email address'),
+                                    ->placeholder('Masukan email'),
                             ]),
 
                         Grid::make(2)
@@ -76,41 +76,39 @@ class UserResource extends Resource
                                     ->minLength(6)
                                     ->dehydrated(fn($state) => filled($state))
                                     ->dehydrateStateUsing(fn($state) => Hash::make($state))
-                                    ->placeholder('Enter password')
-                                    ->helperText('Leave blank to keep current password when editing'),
+                                    ->placeholder('Masukan password'),
 
                                 Forms\Components\DateTimePicker::make('email_verified_at')
-                                    ->label('Email Verified At')
-                                    ->nullable()
-                                    ->helperText('Leave empty for unverified email'),
+                                    ->label('Email Terverifikasi')
+                                    ->nullable(),
                             ]),
                     ]),
 
-                Section::make('Role & Permissions')
+                Section::make('Role & Hak Akses')
                     ->schema([
                         Forms\Components\Select::make('roles')
-                            ->label('User Role')
+                            ->label('Role User')
                             ->relationship('roles', 'name')
                             ->options(Role::all()->pluck('name', 'id'))
                             ->searchable()
                             ->preload()
                             ->multiple()
-                            ->helperText('Select user role(s). Users can have multiple roles.')
-                            ->placeholder('Select role(s)'),
+                            ->helperText('Silahkan pilih role untuk setiap user')
+                            ->placeholder('Pilih role(s)'),
 
                         Forms\Components\Toggle::make('is_active')
-                            ->label('Active User')
+                            ->label('User Aktif')
                             ->default(true)
-                            ->helperText('Inactive users cannot access the system'),
+                            ->helperText('User yang tidak aktif tidak dapat mengakses sistem'),
                     ])
                     ->visible(fn() => auth()->user()->isSuperAdmin()),
 
-                Section::make('Additional Information')
+                Section::make('Informasi Tambahan')
                     ->schema([
                         Forms\Components\Textarea::make('notes')
-                            ->label('Admin Notes')
+                            ->label('Catatan Admin')
                             ->rows(3)
-                            ->placeholder('Internal notes about this user...')
+                            ->placeholder('Catatan internal untuk superadmin dan admin')
                             ->columnSpanFull(),
                     ])
                     ->collapsible()
@@ -123,7 +121,7 @@ class UserResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->label('Name')
+                    ->label('Nama Lengkap')
                     ->searchable()
                     ->sortable()
                     ->weight('semibold'),
@@ -133,7 +131,7 @@ class UserResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->copyable()
-                    ->copyMessage('Email copied!')
+                    ->copyMessage('Email berhasil disalin!')
                     ->copyMessageDuration(1500),
 
                 Tables\Columns\BadgeColumn::make('roles.name')
@@ -151,7 +149,7 @@ class UserResource extends Resource
                     }),
 
                 Tables\Columns\IconColumn::make('email_verified_at')
-                    ->label('Verified')
+                    ->label('Terverifikasi')
                     ->boolean()
                     ->getStateUsing(fn(User $record): bool => !is_null($record->email_verified_at))
                     ->trueIcon('heroicon-o-check-badge')
@@ -160,26 +158,26 @@ class UserResource extends Resource
                     ->falseColor('warning'),
 
                 Tables\Columns\TextColumn::make('bookings_count')
-                    ->label('Bookings')
+                    ->label('Pemesanan')
                     ->counts('bookings')
                     ->alignCenter()
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('ownedFields_count')
-                    ->label('Fields Owned')
+                    ->label('Lapangan milik user')
                     ->counts('ownedFields')
                     ->alignCenter()
                     ->sortable()
                     ->visible(fn() => auth()->user()->isSuperAdmin()),
 
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('Registered')
+                    ->label('Daftar pada tanggal')
                     ->dateTime('d M Y')
                     ->sortable()
                     ->toggleable(),
 
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->label('Last Updated')
+                    ->label('Update pada tanggal')
                     ->dateTime('d M Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -220,7 +218,7 @@ class UserResource extends Resource
             ->actions([
                 ActionGroup::make([
                     Action::make('verify_email')
-                        ->label('Verify Email')
+                        ->label('Verifikasi Email')
                         ->icon('heroicon-o-check-badge')
                         ->color('success')
                         ->visible(fn(User $record): bool => is_null($record->email_verified_at))
@@ -228,13 +226,13 @@ class UserResource extends Resource
                         ->action(function (User $record) {
                             $record->update(['email_verified_at' => now()]);
                             Notification::make()
-                                ->title('Email verified successfully')
+                                ->title('Email berhasil terverifikasi')
                                 ->success()
                                 ->send();
                         }),
 
                     Action::make('unverify_email')
-                        ->label('Unverify Email')
+                        ->label('Batalkan Verifikasi Email')
                         ->icon('heroicon-o-exclamation-triangle')
                         ->color('warning')
                         ->visible(fn(User $record): bool => !is_null($record->email_verified_at))
@@ -242,18 +240,18 @@ class UserResource extends Resource
                         ->action(function (User $record) {
                             $record->update(['email_verified_at' => null]);
                             Notification::make()
-                                ->title('Email unverified successfully')
+                                ->title('Email berhasil dibatalkan verifikasinya')
                                 ->warning()
                                 ->send();
                         }),
 
                     Action::make('reset_password')
-                        ->label('Reset Password')
+                        ->label('Ubah Kata Sandi')
                         ->icon('heroicon-o-key')
                         ->color('warning')
                         ->form([
                             Forms\Components\TextInput::make('new_password')
-                                ->label('New Password')
+                                ->label('Kata Sandi Baru')
                                 ->password()
                                 ->required()
                                 ->minLength(6),
@@ -261,7 +259,7 @@ class UserResource extends Resource
                         ->action(function (User $record, array $data) {
                             $record->update(['password' => Hash::make($data['new_password'])]);
                             Notification::make()
-                                ->title('Password reset successfully')
+                                ->title('Kata Sandi Berhasil Diubah')
                                 ->success()
                                 ->send();
                         }),
@@ -282,13 +280,13 @@ class UserResource extends Resource
                         }),
 
                     Tables\Actions\BulkAction::make('verify_emails')
-                        ->label('Verify Emails')
+                        ->label('Verifikasi Email')
                         ->icon('heroicon-o-check-badge')
                         ->color('success')
                         ->action(function ($records) {
                             $records->each(fn(User $record) => $record->update(['email_verified_at' => now()]));
                             Notification::make()
-                                ->title('Emails verified successfully')
+                                ->title('Email Berhasil Diverifikasi')
                                 ->success()
                                 ->send();
                         }),
