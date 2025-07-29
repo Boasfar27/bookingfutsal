@@ -53,7 +53,7 @@ class ScheduleResource extends Resource
                         Grid::make(2)
                             ->schema([
                                 Forms\Components\Select::make('field_id')
-                                    ->label('Field')
+                                    ->label('Nama Lapangan')
                                     ->relationship('field', 'name')
                                     ->getOptionLabelFromRecordUsing(
                                         fn(Field $record): string =>
@@ -191,13 +191,13 @@ class ScheduleResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('field.name')
-                    ->label('Field')
+                    ->label('Nama Lapangan')
                     ->searchable()
                     ->sortable()
                     ->weight('semibold'),
 
                 Tables\Columns\TextColumn::make('title')
-                    ->label('Title')
+                    ->label('Deskripsi')
                     ->searchable()
                     ->limit(30)
                     ->tooltip(function (Schedule $record): ?string {
@@ -205,7 +205,7 @@ class ScheduleResource extends Resource
                     }),
 
                 Tables\Columns\BadgeColumn::make('type')
-                    ->label('Type')
+                    ->label('Jenis ')
                     ->colors([
                         'warning' => 'maintenance',
                         'danger' => 'blocked',
@@ -225,13 +225,13 @@ class ScheduleResource extends Resource
                     }),
 
                 Tables\Columns\TextColumn::make('date')
-                    ->label('Date')
+                    ->label('Tanggal')
                     ->date('D, d M Y')
                     ->sortable()
                     ->color(fn(Schedule $record) => $record->date->isPast() ? 'gray' : 'primary'),
 
                 Tables\Columns\TextColumn::make('time_range')
-                    ->label('Time')
+                    ->label('Waktu')
                     ->getStateUsing(
                         fn(Schedule $record): string =>
                         Carbon::parse($record->start_time)->format('H:i') . ' - ' .
@@ -239,7 +239,7 @@ class ScheduleResource extends Resource
                     ),
 
                 Tables\Columns\IconColumn::make('is_recurring')
-                    ->label('Recurring')
+                    ->label('Berulang')
                     ->boolean()
                     ->tooltip(
                         fn(Schedule $record): ?string =>

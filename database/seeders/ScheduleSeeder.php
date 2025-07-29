@@ -190,20 +190,5 @@ class ScheduleSeeder extends Seeder
         foreach ($schedules as $scheduleData) {
             Schedule::create($scheduleData);
         }
-
-        $this->command->info('Demo schedules created successfully!');
-        $this->command->info('10 schedules created with various types:');
-        $this->command->info('- Maintenance (4 schedules)');
-        $this->command->info('- Events (3 schedules)');
-        $this->command->info('- Renovation (1 schedule)');
-        $this->command->info('- Private use (1 schedule)');
-        $this->command->info('- Cleaning (1 schedule)');
-        $this->command->info('- Blocked (1 schedule)');
-        $this->command->info('');
-        $this->command->info('Recurring types included:');
-        $this->command->info('- Daily recurring maintenance');
-        $this->command->info('- Weekly recurring (specific days)');
-        $this->command->info('- Monthly recurring equipment checks');
-        $this->command->info('- One-time events and maintenance');
     }
 }
