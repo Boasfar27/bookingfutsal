@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 
 class AuthController extends Controller
@@ -107,5 +108,72 @@ class AuthController extends Controller
 
         return redirect(route('home'))
             ->with('success', 'Anda berhasil keluar. Sampai jumpa lagi!');
+    }
+
+    /**
+     * Redirect to Google OAuth
+     */
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    /**
+     * Handle Google OAuth callback
+     */
+    public function handleGoogleCallback()
+    {
+        try {
+            $googleUser = Socialite::driver('google')->user();
+
+            // Check if user already exists with this Google ID
+            $user = User::where('google_id', $googleUser->id)->first();
+
+            if ($user) {
+                // User exists, log them in
+                Auth::login($user);
+
+                // Check if user is admin and redirect accordingly
+                if ($user->hasRole('admin') || $user->hasRole('superadmin')) {
+                    return redirect('/admin')->with('success', 'Selamat datang kembali, ' . $user->name . '!');
+                }
+
+                return redirect()->intended(route('dashboard'))
+                    ->with('success', 'Selamat datang kembali, ' . $user->name . '!');
+            }
+
+            // Check if user exists with this email
+            $user = User::where('email', $googleUser->email)->first();
+
+            if ($user) {
+                // Update existing user with Google ID
+                $user->update([
+                    'google_id' => $googleUser->id,
+                    'avatar' => $googleUser->avatar,
+                ]);
+            } else {
+                // Create new user
+                $user = User::create([
+                    'name' => $googleUser->name,
+                    'email' => $googleUser->email,
+                    'google_id' => $googleUser->id,
+                    'avatar' => $googleUser->avatar,
+                    'email_verified_at' => now(),
+                    'password' => Hash::make(uniqid()), // Random password since they'll use Google
+                ]);
+
+                // Assign default 'user' role
+                $user->assignRole('user');
+            }
+
+            Auth::login($user);
+
+            return redirect()->intended(route('dashboard'))
+                ->with('success', 'Selamat datang di FutsalPro, ' . $user->name . '!');
+
+        } catch (\Exception $e) {
+            return redirect(route('login'))
+                ->with('error', 'Terjadi kesalahan saat login dengan Google. Silakan coba lagi.');
+        }
     }
 }
