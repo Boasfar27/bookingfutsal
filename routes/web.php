@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FieldController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AuthController;
 
 // Public routes
@@ -31,6 +32,8 @@ Route::middleware('guest')->group(function () {
 // Protected routes
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Booking routes
     Route::get('/bookings', [BookingController::class, 'index'])->name('bookings.index');
     Route::get('/bookings/create/{field}', [BookingController::class, 'create'])->name('bookings.create');
     Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
@@ -40,6 +43,12 @@ Route::middleware('auth')->group(function () {
     // Payment routes
     Route::get('/payments/{booking}', [BookingController::class, 'payment'])->name('payments.show');
     Route::post('/payments/{booking}/upload', [BookingController::class, 'uploadPayment'])->name('payments.upload');
+
+    // Profile routes
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
 
     // Logout
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
