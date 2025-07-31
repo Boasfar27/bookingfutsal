@@ -79,8 +79,7 @@ class UserResource extends Resource
                                     ->placeholder('Masukan password'),
 
                                 Forms\Components\DateTimePicker::make('email_verified_at')
-                                    ->label('Email Terverifikasi')
-                                    ->nullable(),
+                                    ->label('Email Terverifikasi'),
                             ]),
                     ]),
 
