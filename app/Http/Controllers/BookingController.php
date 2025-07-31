@@ -30,7 +30,7 @@ class BookingController extends Controller
         }
 
         $booking->load(['field', 'payment']);
-        
+
         return view('bookings.show', compact('booking'));
     }
 
@@ -38,7 +38,7 @@ class BookingController extends Controller
     {
         $date = $request->get('date');
         $time = $request->get('time');
-        
+
         return view('bookings.create', compact('field', 'date', 'time'));
     }
 
@@ -56,10 +56,10 @@ class BookingController extends Controller
         ]);
 
         $field = Field::findOrFail($request->field_id);
-        
+
         // Calculate end time and total price
         $startTime = $request->start_time;
-        $duration = (int)$request->duration_hours;
+        $duration = (int) $request->duration_hours;
         $endTime = date('H:i:s', strtotime($startTime . ' + ' . $duration . ' hours'));
         $totalPrice = $field->price_per_hour * $duration;
 
@@ -119,7 +119,7 @@ class BookingController extends Controller
         }
 
         $booking->load(['field', 'payment']);
-        
+
         return view('payments.upload', compact('booking'));
     }
 

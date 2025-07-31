@@ -27,7 +27,7 @@ class BookingResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
 
-    protected static ?string $navigationLabel = 'Booking';
+    protected static ?string $navigationLabel = 'Sewa Lapangan';
 
     protected static ?string $modelLabel = 'Booking';
 

@@ -27,7 +27,7 @@ class ScheduleResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
 
-    protected static ?string $navigationLabel = 'Schedules';
+    protected static ?string $navigationLabel = 'Penjadwalan Maintenance';
 
     protected static ?string $modelLabel = 'Schedule';
 
